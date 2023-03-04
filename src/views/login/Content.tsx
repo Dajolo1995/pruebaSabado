@@ -8,6 +8,9 @@ const Content: React.FC = () => {
 
   const formStateLogin = (value: boolean) => {
     setStateForm(value);
+
+    
+
   };
 
   return (

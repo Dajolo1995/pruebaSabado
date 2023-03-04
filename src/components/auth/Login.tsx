@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Form, Row, Col, Input, Typography, Button } from "../../utils/Desing";
+import { HomeworkContext } from "../../context/userContext";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 interface loginInterfaz {
   formStateLogin: (value: boolean) => void;
 }
 
-const Login  = ({ formStateLogin }: loginInterfaz) => {
-  const onFinish = (value) => {
-    console.log(value);
+const Login = ({ formStateLogin }: loginInterfaz) => {
+  const { dataLogin, dataUserAuth } = useContext(HomeworkContext);
+  const navigate = useNavigate()
+
+  const onFinish = async (value) => {
+    try {
+      dataUserAuth(value);
+
+      await validations();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const validations = () => {
+    console.log(dataLogin);
+
+    try {
+      if (dataLogin.length === 0) {
+        Swal.fire({
+          text: "Email o password incorrect",
+          icon: "error",
+          title: "Ooops!!",
+        });
+      } else if (dataLogin[0]?.state === false) {
+        Swal.fire({
+          text: "Usuario inactivo comuniquese con administrador",
+          icon: "error",
+          title: "Ooops!!",
+        });
+      } else {
+        localStorage.setItem("user", dataLogin[0]?.name);
+        localStorage.setItem("rol", dataLogin[0]?.state);
+
+        navigate("/home")
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
