@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "name": "superAdmin",
+      "lastName": "",
+      "cel": "3000000",
+      "email": "correo@correo.com",
+      "password": "123456",
+      "dependency": {
+        "id": "1",
+        "name": "Recursos humanos",
+        "tel": "3000000"
+      },
+      "state": true,
+      "rol": "Administrador"
+    }
+  ]
+}
